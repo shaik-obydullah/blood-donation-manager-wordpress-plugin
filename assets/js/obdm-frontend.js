@@ -1,19 +1,19 @@
 jQuery(document).ready(function($) {
     // Donor Registration Form
-    $('#bdm-donor-form').on('submit', function(e) {
+    $('#obdm-donor-form').on('submit', function(e) {
         e.preventDefault();
         
         var $form = $(this);
-        var $submitBtn = $('#bdm-donor-submit');
-        var $message = $('#bdm-donor-message');
+        var $submitBtn = $('#obdm-donor-submit');
+        var $message = $('#obdm-donor-message');
         
-        $submitBtn.find('.bdm-btn-text').hide();
-        $submitBtn.find('.bdm-btn-loading').show();
+        $submitBtn.find('.obdm-btn-text').hide();
+        $submitBtn.find('.obdm-btn-loading').show();
         $submitBtn.prop('disabled', true);
         
         var formData = {
-            action: 'bdm_register_donor',
-            nonce: bdmFrontend.nonce,
+            action: 'obdm_register_donor',
+            nonce: obdmFrontend.nonce,
             first_name: $form.find('[name="first_name"]').val(),
             last_name: $form.find('[name="last_name"]').val(),
             email: $form.find('[name="email"]').val(),
@@ -32,40 +32,40 @@ jQuery(document).ready(function($) {
             is_available: $form.find('[name="is_available"]').is(':checked') ? 1 : 0
         };
         
-        $.post(bdmFrontend.ajax_url, formData, function(response) {
-            $submitBtn.find('.bdm-btn-text').show();
-            $submitBtn.find('.bdm-btn-loading').hide();
+        $.post(obdmFrontend.ajax_url, formData, function(response) {
+            $submitBtn.find('.obdm-btn-text').show();
+            $submitBtn.find('.obdm-btn-loading').hide();
             $submitBtn.prop('disabled', false);
             
             if (response.success) {
-                $message.removeClass('bdm-message-error').addClass('bdm-message-success').text(response.data.message).show();
+                $message.removeClass('obdm-message-error').addClass('obdm-message-success').text(response.data.message).show();
                 $form[0].reset();
             } else {
-                $message.removeClass('bdm-message-success').addClass('bdm-message-error').text(response.data.message).show();
+                $message.removeClass('obdm-message-success').addClass('obdm-message-error').text(response.data.message).show();
             }
         }).fail(function() {
-            $submitBtn.find('.bdm-btn-text').show();
-            $submitBtn.find('.bdm-btn-loading').hide();
+            $submitBtn.find('.obdm-btn-text').show();
+            $submitBtn.find('.obdm-btn-loading').hide();
             $submitBtn.prop('disabled', false);
-            $message.removeClass('bdm-message-success').addClass('bdm-message-error').text('An error occurred. Please try again.').show();
+            $message.removeClass('obdm-message-success').addClass('obdm-message-error').text('An error occurred. Please try again.').show();
         });
     });
     
     // Donation Request Form
-    $('#bdm-request-form').on('submit', function(e) {
+    $('#obdm-request-form').on('submit', function(e) {
         e.preventDefault();
         
         var $form = $(this);
-        var $submitBtn = $('#bdm-request-submit');
-        var $message = $('#bdm-request-message');
+        var $submitBtn = $('#obdm-request-submit');
+        var $message = $('#obdm-request-message');
         
-        $submitBtn.find('.bdm-btn-text').hide();
-        $submitBtn.find('.bdm-btn-loading').show();
+        $submitBtn.find('.obdm-btn-text').hide();
+        $submitBtn.find('.obdm-btn-loading').show();
         $submitBtn.prop('disabled', true);
         
         var formData = {
-            action: 'bdm_submit_request',
-            nonce: bdmFrontend.nonce,
+            action: 'obdm_submit_request',
+            nonce: obdmFrontend.nonce,
             requester_name: $form.find('[name="requester_name"]').val(),
             requester_email: $form.find('[name="requester_email"]').val(),
             requester_phone: $form.find('[name="requester_phone"]').val(),
@@ -80,22 +80,22 @@ jQuery(document).ready(function($) {
             additional_info: $form.find('[name="additional_info"]').val()
         };
         
-        $.post(bdmFrontend.ajax_url, formData, function(response) {
-            $submitBtn.find('.bdm-btn-text').show();
-            $submitBtn.find('.bdm-btn-loading').hide();
+        $.post(obdmFrontend.ajax_url, formData, function(response) {
+            $submitBtn.find('.obdm-btn-text').show();
+            $submitBtn.find('.obdm-btn-loading').hide();
             $submitBtn.prop('disabled', false);
             
             if (response.success) {
-                $message.removeClass('bdm-message-error').addClass('bdm-message-success').text(response.data.message).show();
+                $message.removeClass('obdm-message-error').addClass('obdm-message-success').text(response.data.message).show();
                 $form[0].reset();
             } else {
-                $message.removeClass('bdm-message-success').addClass('bdm-message-error').text(response.data.message).show();
+                $message.removeClass('obdm-message-success').addClass('obdm-message-error').text(response.data.message).show();
             }
         }).fail(function() {
-            $submitBtn.find('.bdm-btn-text').show();
-            $submitBtn.find('.bdm-btn-loading').hide();
+            $submitBtn.find('.obdm-btn-text').show();
+            $submitBtn.find('.obdm-btn-loading').hide();
             $submitBtn.prop('disabled', false);
-            $message.removeClass('bdm-message-success').addClass('bdm-message-error').text('An error occurred. Please try again.').show();
+            $message.removeClass('obdm-message-success').addClass('obdm-message-error').text('An error occurred. Please try again.').show();
         });
     });
 });
