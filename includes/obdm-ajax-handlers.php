@@ -22,6 +22,48 @@ function obdm_post_value($key) {
     return is_scalar($value) ? sanitize_text_field((string) $value) : '';
 }
 
+/**
+ * Normalises a submitted date for a DATE column.
+ *
+ * An absent field has to be stored as NULL. Passing an empty string through
+ * to MySQL would land as the zero date 0000-00-00, which is not a real date
+ * and silently breaks age and expiry comparisons. Anything that is not a
+ * well-formed Y-m-d value is dropped the same way, so a mistyped date is never
+ * persisted as a zero date.
+ *
+ * @param string $value Raw, untrusted date.
+ * @return string|null Y-m-d date, or null when absent or malformed.
+ */
+function obdm_post_date($value) {
+    $value = obdm_post_value($value);
+
+    if ('' === $value) {
+        return null;
+    }
+
+    $date = DateTime::createFromFormat('!Y-m-d', $value);
+
+    return ($date && $date->format('Y-m-d') === $value) ? $value : null;
+}
+
+/**
+ * Sends a JSON error naming the first unusable field.
+ *
+ * @param array $fields Map of POST key to value that has already been sanitised.
+ * @return void
+ */
+function obdm_require_fields($fields) {
+    foreach ($fields as $field => $value) {
+        if ('' === $value || null === $value) {
+            wp_send_json_error(['message' => sprintf(
+                /* translators: %s: name of the missing form field. */
+                __('Please fill in all required fields. Missing: %s', 'obydullah-blood-bank-manager'),
+                $field
+            )]);
+        }
+    }
+}
+
 function obdm_ajax_register_donor() {
     $nonce = sanitize_text_field(wp_unslash($_POST['nonce'] ?? ''));
 
@@ -30,44 +72,58 @@ function obdm_ajax_register_donor() {
     }
 
     global $wpdb;
-    
-    $required_fields = ['first_name', 'last_name', 'email', 'phone', 'blood_type'];
-    
-    foreach ($required_fields as $field) {
-        if (empty(obdm_post_value($field))) {
-            wp_send_json_error(['message' => sprintf(
-                /* translators: %s: name of the missing form field. */
-                __('Please fill in all required fields. Missing: %s', 'obydullah-blood-bank-manager'),
-                $field
-            )]);
-        }
-    }
-    
+
+    // Sanitise first, validate second. The previous order checked the raw POST
+    // values and then sanitised them, so a field that sanitised down to an
+    // empty string (sanitize_email() does exactly that for a malformed address)
+    // still reached the INSERT while the visitor was told it had worked.
     $user_id            = get_current_user_id();
-    $first_name         = sanitize_text_field(wp_unslash($_POST['first_name'] ?? ''));
-    $last_name          = sanitize_text_field(wp_unslash($_POST['last_name'] ?? ''));
-    $email              = sanitize_email(wp_unslash($_POST['email'] ?? ''));
-    $existing           = Obdm_Blood_Bank_Manager::donors_count_by_email($email);
+    $first_name         = obdm_post_value('first_name');
+    $last_name          = obdm_post_value('last_name');
+    $email              = obdm_post_value('email');
+    $phone              = obdm_post_value('phone');
+    $blood_type         = Obdm_Blood_Bank_Manager::validate_blood_type(obdm_post_value('blood_type'));
+    $date_of_birth      = obdm_post_date('date_of_birth');
+    $gender             = obdm_post_value('gender');
+    $weight             = floatval(obdm_post_value('weight'));
+    $address            = sanitize_textarea_field(obdm_post_value('address'));
+    $city               = obdm_post_value('city');
+    $state              = obdm_post_value('state');
+    $zip_code           = obdm_post_value('zip_code');
+    $country            = obdm_post_value('country');
+    $last_donation_date = obdm_post_date('last_donation_date');
+    $medical_conditions = sanitize_textarea_field(obdm_post_value('medical_conditions'));
+    $is_available       = '1' === obdm_post_value('is_available') ? 1 : 0;
+    $settings           = get_option('obdm_settings', []);
+    $min_weight         = isset($settings['min_weight']) ? floatval($settings['min_weight']) : 50;
+
+    obdm_require_fields([
+        'first_name' => $first_name,
+        'last_name'  => $last_name,
+        'email'      => $email,
+        'phone'      => $phone,
+    ]);
+
+    if (!is_email($email)) {
+        wp_send_json_error(['message' => __('Please enter a valid email address.', 'obydullah-blood-bank-manager')]);
+    }
+
+    // Only normalised once it is known to be an address, so a malformed one is
+    // reported as invalid rather than as a missing field.
+    $email = sanitize_email($email);
+
+    // The blood type drives donor matching, searching and the compatibility
+    // lookups, so only the canonical set is accepted. An unrecognised value is
+    // rejected here rather than stored as free text.
+    if (null === $blood_type) {
+        wp_send_json_error(['message' => __('Please choose a valid blood type.', 'obydullah-blood-bank-manager')]);
+    }
+
+    $existing = Obdm_Blood_Bank_Manager::donors_count_by_email($email);
 
     if ($existing > 0) {
         wp_send_json_error(['message' => __('A donor with this email already exists.', 'obydullah-blood-bank-manager')]);
     }
-
-    $phone              = sanitize_text_field(wp_unslash($_POST['phone'] ?? ''));
-    $blood_type         = sanitize_text_field(wp_unslash($_POST['blood_type'] ?? ''));
-    $date_of_birth      = sanitize_text_field(wp_unslash($_POST['date_of_birth'] ?? ''));
-    $gender             = sanitize_text_field(wp_unslash($_POST['gender'] ?? ''));
-    $weight             = floatval(wp_unslash($_POST['weight'] ?? ''));
-    $address            = sanitize_textarea_field(wp_unslash($_POST['address'] ?? ''));
-    $city               = sanitize_text_field(wp_unslash($_POST['city'] ?? ''));
-    $state              = sanitize_text_field(wp_unslash($_POST['state'] ?? ''));
-    $zip_code           = sanitize_text_field(wp_unslash($_POST['zip_code'] ?? ''));
-    $country            = sanitize_text_field(wp_unslash($_POST['country'] ?? ''));
-    $last_donation_date = sanitize_text_field(wp_unslash($_POST['last_donation_date'] ?? ''));
-    $medical_conditions = sanitize_textarea_field(wp_unslash($_POST['medical_conditions'] ?? ''));
-    $is_available       = intval(wp_unslash($_POST['is_available'] ?? ''));
-    $settings           = get_option('obdm_settings', []);
-    $min_weight         = isset($settings['min_weight']) ? floatval($settings['min_weight']) : 50;
 
     if ($weight > 0 && $weight < $min_weight) {
         wp_send_json_error(['message' => sprintf(
@@ -120,32 +176,57 @@ function obdm_ajax_submit_request() {
     }
 
     global $wpdb;
-    
-    $required_fields = ['requester_name', 'requester_email', 'requester_phone', 'patient_name', 'blood_type_needed', 'hospital_name'];
-    
-    foreach ($required_fields as $field) {
-        if (empty(obdm_post_value($field))) {
-            wp_send_json_error(['message' => sprintf(
-                /* translators: %s: name of the missing form field. */
-                __('Please fill in all required fields. Missing: %s', 'obydullah-blood-bank-manager'),
-                $field
-            )]);
-        }
-    }
-    
-    $requester_name    = sanitize_text_field(wp_unslash($_POST['requester_name'] ?? ''));
-    $requester_email   = sanitize_email(wp_unslash($_POST['requester_email'] ?? ''));
-    $requester_phone   = sanitize_text_field(wp_unslash($_POST['requester_phone'] ?? ''));
-    $patient_name      = sanitize_text_field(wp_unslash($_POST['patient_name'] ?? ''));
-    $blood_type_needed = sanitize_text_field(wp_unslash($_POST['blood_type_needed'] ?? ''));
-    $units_needed      = intval(wp_unslash($_POST['units_needed'] ?? ''));
-    $hospital_name     = sanitize_text_field(wp_unslash($_POST['hospital_name'] ?? ''));
-    $hospital_address  = sanitize_textarea_field(wp_unslash($_POST['hospital_address'] ?? ''));
-    $city              = sanitize_text_field(wp_unslash($_POST['city'] ?? ''));
-    $urgency           = sanitize_text_field(wp_unslash($_POST['urgency'] ?? ''));
-    $needed_by         = sanitize_text_field(wp_unslash($_POST['needed_by'] ?? ''));
-    $additional_info   = sanitize_textarea_field(wp_unslash($_POST['additional_info'] ?? ''));
+
+    // See obdm_ajax_register_donor(): sanitise, then validate. These values
+    // reach ENUM and DATE columns, where a rejected or malformed value is
+    // coerced by MySQL into '' or the zero date instead of raising an error.
+    $requester_name    = obdm_post_value('requester_name');
+    $requester_email   = obdm_post_value('requester_email');
+    $requester_phone   = obdm_post_value('requester_phone');
+    $patient_name      = obdm_post_value('patient_name');
+    $blood_type_needed = Obdm_Blood_Bank_Manager::validate_blood_type(obdm_post_value('blood_type_needed'));
+    $units_needed      = absint(obdm_post_value('units_needed'));
+    $hospital_name     = obdm_post_value('hospital_name');
+    $hospital_address  = sanitize_textarea_field(obdm_post_value('hospital_address'));
+    $city              = obdm_post_value('city');
+    $urgency           = obdm_post_value('urgency');
+    $needed_by         = obdm_post_date('needed_by');
+    $additional_info   = sanitize_textarea_field(obdm_post_value('additional_info'));
     $status            = 'pending';
+
+    obdm_require_fields([
+        'requester_name'    => $requester_name,
+        'requester_email'   => $requester_email,
+        'requester_phone'   => $requester_phone,
+        'patient_name'      => $patient_name,
+        'hospital_name'     => $hospital_name,
+    ]);
+
+    if (!is_email($requester_email)) {
+        wp_send_json_error(['message' => __('Please enter a valid email address.', 'obydullah-blood-bank-manager')]);
+    }
+
+    $requester_email = sanitize_email($requester_email);
+
+    if (null === $blood_type_needed) {
+        wp_send_json_error(['message' => __('Please choose a valid blood type.', 'obydullah-blood-bank-manager')]);
+    }
+
+    // urgency is an ENUM: an unrecognised value would be stored as '' and then
+    // sort wrong in the dashboard's urgency ordering.
+    $urgency_options = array_keys(Obdm_Blood_Bank_Manager::get_urgency_labels());
+
+    if ('' !== $urgency && !in_array($urgency, $urgency_options, true)) {
+        wp_send_json_error(['message' => __('Please choose a valid urgency level.', 'obydullah-blood-bank-manager')]);
+    }
+
+    if ('' === $urgency) {
+        $urgency = 'normal';
+    }
+
+    // A request always needs at least one unit, otherwise the ENUM-backed
+    // default is bypassed by an explicit zero.
+    $units_needed = max(1, $units_needed);
 
     $data = [
         'requester_name'    => $requester_name,

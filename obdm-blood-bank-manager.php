@@ -45,6 +45,15 @@ class Obdm_Blood_Bank_Manager {
      */
     private const CACHE_TTL = HOUR_IN_SECONDS;
 
+    /**
+     * Nonce action guarding the one-off admin notice message.
+     *
+     * Every admin redirect that carries a notice goes through $bail(), which
+     * mints this nonce. admin_notice_message() only returns the message when
+     * it verifies, so a notice URL cannot be hand-crafted by an outsider.
+     */
+    private const NOTICE_NONCE_ACTION = 'obdm_admin_notice';
+
     private static ?self $instance = null;
 
     public $donors_table;
@@ -75,6 +84,7 @@ class Obdm_Blood_Bank_Manager {
         add_action('restrict_manage_posts', [$this, 'campaign_list_filters']);
         add_action('pre_get_posts', [$this, 'filter_campaign_query']);
         add_action('admin_notices', [$this, 'campaign_filter_notice']);
+        add_action('save_post', [__CLASS__, 'flush_shortcode_page_cache']);
 
         add_shortcode('obdm_donor_registration', [$this, 'donor_registration_form']);
         add_shortcode('obdm_donation_request', [$this, 'donation_request_form']);
@@ -85,7 +95,6 @@ class Obdm_Blood_Bank_Manager {
     }
 
     public function activate() {
-        $this->migrate_legacy_names();
         $this->create_tables();
         $this->create_post_types();
         flush_rewrite_rules();
@@ -113,7 +122,22 @@ class Obdm_Blood_Bank_Manager {
         $action = isset($_GET['action']) ? sanitize_text_field(wp_unslash($_GET['action'])) : '';
         $id     = isset($_GET['id']) ? intval($_GET['id']) : 0;
         $bail   = function ($page, $args = []) {
-            $args = array_merge(['page' => $page], $args);
+            /*
+             * add_query_arg() does not encode: build_query() calls
+             * _http_build_query(..., false) with urlencoding disabled, and its
+             * docblock in wp-includes/functions.php says so explicitly. Callers
+             * therefore pre-encode their values with rawurlencode(), which is
+             * the only encoding pass in this redirect. Removing it truncates
+             * messages at the first "&" and lets a translated string inject
+             * extra $_GET keys.
+             *
+             * The nonce makes the notice self-issued: admin_notice_message()
+             * discards the message unless it verifies.
+             */
+            $args = array_merge([
+                'page' => $page,
+                'obdm_notice_nonce' => wp_create_nonce(self::NOTICE_NONCE_ACTION),
+            ], $args);
             wp_safe_redirect(add_query_arg($args, admin_url('admin.php')));
             exit;
         };
@@ -398,93 +422,6 @@ class Obdm_Blood_Bank_Manager {
         $this->create_post_types();
     }
 
-    /**
-     * Migrates legacy "bdm_" storage names to "obdm_" so existing data
-     * survives the BDM -> OBDM rename. Runs once on activation.
-     */
-    /**
-     * Renames the pre-rename bdm_* tables and rewrites bdm_* references in
-     * post content, post meta and the db version option.
-     *
-     * This runs once, guarded by the obdm_legacy_migrated option. Its statements
-     * are DDL, one-off bulk rewrites and schema introspection: there is nothing
-     * reusable to cache and nothing reads the result twice, so the caching
-     * sniffs do not apply to this routine.
-     */
-    private function migrate_legacy_names() {
-        global $wpdb;
-
-        /*
-         * phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-         * One-shot activation migration: DDL, bulk rewrites and SHOW TABLES.
-         * Caching would be meaningless for statements that run exactly once.
-         */
-        if (get_option('obdm_legacy_migrated')) {
-            return;
-        }
-
-        $renamed_tables = [
-            'bdm_donors'      => 'obdm_donors',
-            'bdm_requests'    => 'obdm_requests',
-            'bdm_blood_banks' => 'obdm_blood_banks',
-        ];
-
-        foreach ($renamed_tables as $old => $new) {
-            // Table identifiers cannot be bound as query params, so both names
-            // are rebuilt from the hard-coded list and the site prefix only.
-            $old_full = $wpdb->prefix . preg_replace('/[^a-z0-9_]/', '', $old);
-            $new_full = $wpdb->prefix . preg_replace('/[^a-z0-9_]/', '', $new);
-
-            $old_exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $old_full));
-            $new_exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $new_full));
-
-            if ($old_exists && !$new_exists) {
-                $wpdb->query(
-                    $wpdb->prepare(
-                        'RENAME TABLE `%s` TO `%s`', // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- identifiers are whitelisted above.
-                        $old_full,
-                        $new_full
-                    )
-                );
-            }
-        }
-
-        $wpdb->query(
-            "UPDATE {$wpdb->posts}
-             SET post_type = 'obdm_campaign'
-             WHERE post_type = 'bdm_campaign'"
-        );
-        $wpdb->query(
-            "UPDATE {$wpdb->posts}
-             SET post_type = 'obdm_blood_bank'
-             WHERE post_type = 'bdm_blood_bank'"
-        );
-
-        $wpdb->query(
-            "UPDATE {$wpdb->postmeta}
-             SET meta_key = CONCAT('_obdm_', SUBSTRING(meta_key, 6))
-             WHERE meta_key LIKE '\\_bdm\\_%'"
-        );
-
-        $wpdb->query(
-            "UPDATE {$wpdb->posts}
-             SET post_content = REPLACE(post_content, '[bdm_', '[obdm_')
-             WHERE post_content LIKE '%[bdm_%'"
-        );
-
-        $wpdb->query(
-            "UPDATE {$wpdb->options}
-             SET option_name = 'obdm_db_version'
-             WHERE option_name = 'bdm_db_version'"
-        );
-
-        update_option('obdm_legacy_migrated', 1);
-        /* phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching */
-
-        // Cached reads were keyed against the pre-migration schema.
-        self::flush_query_cache();
-    }
-
     private function create_tables() {
         global $wpdb;
         $charset_collate = $wpdb->get_charset_collate();
@@ -571,6 +508,35 @@ class Obdm_Blood_Bank_Manager {
         update_option('obdm_db_version', OBDM_VERSION);
     }
 
+    /**
+     * Capability map that restricts a post type to administrators.
+     *
+     * Without this, register_post_type() defaults to capability_type "post",
+     * so every role that can edit posts (Author and up) can also create,
+     * publish and delete these types through post-new.php and the REST API.
+     * show_in_menu = false only hides the menu link, it does not restrict
+     * access, so the capability map has to be declared explicitly.
+     *
+     * map_meta_cap must stay false: with it enabled core remaps the singular
+     * caps back through capability_type and would restore edit_others_posts
+     * and publish_posts, reopening the hole.
+     *
+     * @return array<string, string> Meta capability => primitive capability.
+     */
+    private static function admin_only_capabilities() {
+        return [
+            'edit_post'          => 'manage_options',
+            'read_post'          => 'manage_options',
+            'delete_post'        => 'manage_options',
+            'edit_posts'         => 'manage_options',
+            'edit_others_posts'  => 'manage_options',
+            'publish_posts'      => 'manage_options',
+            'read_private_posts' => 'manage_options',
+            'create_posts'       => 'manage_options',
+            'delete_posts'       => 'manage_options',
+        ];
+    }
+
     private function create_post_types() {
         register_post_type('obdm_blood_bank', [
             'labels' => [
@@ -585,6 +551,8 @@ class Obdm_Blood_Bank_Manager {
             'show_in_menu' => false,
             'rewrite' => ['slug' => 'blood-banks'],
             'show_in_rest' => true,
+            'capabilities' => self::admin_only_capabilities(),
+            'map_meta_cap' => false,
         ]);
 
         register_post_type('obdm_campaign', [
@@ -600,6 +568,8 @@ class Obdm_Blood_Bank_Manager {
             'show_in_menu' => false,
             'rewrite' => ['slug' => 'campaigns'],
             'show_in_rest' => true,
+            'capabilities' => self::admin_only_capabilities(),
+            'map_meta_cap' => false,
         ]);
     }
 
@@ -679,7 +649,6 @@ class Obdm_Blood_Bank_Manager {
         wp_enqueue_script('obdm-admin', OBDM_PLUGIN_URL . 'assets/js/obdm-admin.js', ['jquery'], self::asset_version('assets/js/obdm-admin.js'), true);
         wp_localize_script('obdm-admin', 'obdmAdmin', [
             'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('obdm_admin_nonce'),
         ]);
     }
 
@@ -1083,16 +1052,24 @@ class Obdm_Blood_Bank_Manager {
     /**
      * Returns the one-off notice message left behind by an admin redirect.
      *
-     * The message is set by this plugin's own redirect helper once a
-     * nonce-protected action has been verified, and is escaped on output.
+     * The message is only returned when the redirect nonce verifies. $bail()
+     * mints that nonce, so the notice can only have been written by this
+     * plugin's own verified action path: a hand-crafted ?message=... link
+     * renders nothing. The value is escaped by the caller on output.
      *
-     * @return string Notice text, or an empty string when there is none.
+     * @return string Notice text, or an empty string when there is none or the
+     *                nonce did not verify.
      */
     public static function admin_notice_message() {
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display-only notice written by a verified admin action.
-        $message = isset( $_GET['message'] ) ? sanitize_text_field( wp_unslash( $_GET['message'] ) ) : '';
+        $nonce = isset($_GET['obdm_notice_nonce']) ? sanitize_text_field(wp_unslash($_GET['obdm_notice_nonce'])) : '';
 
-        return is_string( $message ) ? $message : '';
+        if ('' === $nonce || !wp_verify_nonce($nonce, self::NOTICE_NONCE_ACTION)) {
+            return '';
+        }
+
+        $message = isset($_GET['message']) ? sanitize_text_field(wp_unslash($_GET['message'])) : '';
+
+        return is_string($message) ? $message : '';
     }
 
     /**
@@ -1630,14 +1607,104 @@ class Obdm_Blood_Bank_Manager {
             'total_requests'    => self::select_count( $requests, [ "status = 'pending'" ] ),
             'total_blood_banks' => self::select_count( $blood_banks, [ 'is_active = 1' ] ),
             'blood_type_stats'  => self::select_group_counts( $donors, 'blood_type', [ 'is_available = 1' ] ),
+            // Patient and hospital identity stay in the database: the
+            // dashboard is a public shortcode, so the "Urgent Requests" panel
+            // shows what blood is needed and never who is waiting for it.
             'recent_requests'   => self::select_rows(
                 $requests,
-                'id, patient_name, blood_type_needed, units_needed, hospital_name, urgency',
+                'id, blood_type_needed, units_needed, urgency',
                 [ "status = 'pending'" ],
                 "ORDER BY CASE urgency WHEN 'critical' THEN 1 WHEN 'urgent' THEN 2 ELSE 3 END, created_at DESC",
                 6
             ),
         ];
+    }
+
+    /**
+     * Finds the published post that carries a plugin form shortcode.
+     *
+     * The dashboard call-to-action buttons need a destination, but the forms
+     * are placed with shortcodes instead of living at a fixed URL. The lookup
+     * is a leading-wildcard scan over wp_posts, so the result is cached and
+     * busted whenever a post is saved.
+     *
+     * @param string $shortcode Shortcode name, without brackets.
+     * @return string Permalink of the match, or an empty string when none does.
+     */
+    private static function page_for_shortcode($shortcode) {
+        $cache_key = 'obdm_shortcode_page_' . $shortcode;
+        $cached    = get_transient($cache_key);
+
+        if (false !== $cached) {
+            return (string) $cached;
+        }
+
+        global $wpdb;
+        $like = '%' . $wpdb->esc_like('[' . $shortcode . ']') . '%';
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Read-only lookup on wp_posts, which no core API exposes for a leading-wildcard content search. The pattern is built with esc_like() and bound with %s, and the result is cached in a transient.
+        $id   = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT ID FROM {$wpdb->posts}
+                 WHERE post_status = 'publish'
+                   AND post_type IN ('page', 'post')
+                   AND post_content LIKE %s
+                 ORDER BY ID ASC
+                 LIMIT 1",
+                $like
+            )
+        );
+
+        $url = $id ? (string) get_permalink($id) : '';
+        set_transient($cache_key, $url, DAY_IN_SECONDS);
+
+        return $url;
+    }
+
+    /**
+     * Busts the shortcode-to-page cache. Runs on save_post and on uninstall.
+     */
+    public static function flush_shortcode_page_cache() {
+        delete_transient('obdm_shortcode_page_obdm_donor_registration');
+        delete_transient('obdm_shortcode_page_obdm_donation_request');
+    }
+
+    /**
+     * Target of the dashboard "Register as Donor" button.
+     *
+     * Prefers the page holding the donor form shortcode and falls back to the
+     * WordPress registration screen when open registration is on.
+     *
+     * @return string URL for the button.
+     */
+    public static function donor_registration_url() {
+        $url = self::page_for_shortcode('obdm_donor_registration');
+
+        if (!$url && get_option('users_can_register')) {
+            $url = wp_registration_url();
+        }
+
+        /**
+         * Filters the "Register as Donor" dashboard button destination.
+         *
+         * @param string $url Destination URL, empty when nothing was found.
+         */
+        return (string) apply_filters('obdm_donor_registration_url', $url);
+    }
+
+    /**
+     * Target of the dashboard "Request Blood" button.
+     *
+     * @return string URL for the button.
+     */
+    public static function blood_request_url() {
+        $url = self::page_for_shortcode('obdm_donation_request');
+
+        /**
+         * Filters the "Request Blood" dashboard button destination.
+         *
+         * @param string $url Destination URL, empty when no page carries the form.
+         */
+        return (string) apply_filters('obdm_blood_request_url', $url);
     }
 
     /**
@@ -1885,6 +1952,22 @@ class Obdm_Blood_Bank_Manager {
             'O+' => 'O+',
             'O-' => 'O-',
         ];
+    }
+
+    /**
+     * Normalises a submitted blood type against the canonical list.
+     *
+     * The forms and the admin screens all read their options from
+     * get_blood_types(), so validating against the same array keeps stored
+     * values inside the set the rest of the plugin expects to match and
+     * filter on.
+     *
+     * @param string $value Raw, untrusted blood type.
+     * @return string|null Canonical blood type, or null when unrecognised.
+     */
+    public static function validate_blood_type($value) {
+        $value = strtoupper(trim((string) $value));
+        return array_key_exists($value, self::get_blood_types()) ? $value : null;
     }
 
     public static function get_compatible_blood_types($blood_type) {

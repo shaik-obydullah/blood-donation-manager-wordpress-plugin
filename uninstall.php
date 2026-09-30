@@ -60,11 +60,15 @@ function obdm_uninstall_current_site() {
         $wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $full_name ) );
     }
 
-    $options = array( 'obdm_settings', 'obdm_cache_version', 'obdm_db_version', 'obdm_legacy_migrated' );
+    $options = array( 'obdm_settings', 'obdm_cache_version', 'obdm_db_version' );
 
     foreach ( $options as $option ) {
         delete_option( $option );
     }
+
+    // Caches the dashboard buttons' shortcode-to-page lookups.
+    delete_transient( 'obdm_shortcode_page_obdm_donor_registration' );
+    delete_transient( 'obdm_shortcode_page_obdm_donation_request' );
 }
 
 if ( is_multisite() ) {

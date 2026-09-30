@@ -1,6 +1,12 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+// Defence in depth: add_submenu_page() already gates this screen on
+// manage_options, so this only fires if the file is ever included directly.
+if (!current_user_can('manage_options')) {
+    wp_die(esc_html__('You do not have permission to access this page.', 'obydullah-blood-bank-manager'));
+}
+
 $obdm = Obdm_Blood_Bank_Manager::admin_requests_data();
 
 $obdm_action  = Obdm_Blood_Bank_Manager::admin_record_action();

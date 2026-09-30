@@ -71,8 +71,10 @@ $obdm_status_labels     = Obdm_Blood_Bank_Manager::get_status_labels();
                     <p class="obdm-no-data"><?php esc_html_e('No pending requests.', 'obydullah-blood-bank-manager'); ?></p>
                 <?php else: ?>
                     <div class="obdm-requests-compact">
-                        <?php foreach ($obdm_recent_requests as $obdm_req): ?>
-                            <div class="obdm-request-item obdm-urgency-<?php echo esc_attr($obdm_req->urgency); ?>">
+                        <?php foreach ($obdm_recent_requests as $obdm_req):
+                            $obdm_urgency = isset($obdm_urgency_labels[ $obdm_req->urgency ]) ? $obdm_req->urgency : 'normal';
+                            ?>
+                            <div class="obdm-request-item obdm-urgency-<?php echo esc_attr($obdm_urgency); ?>">
                                 <div class="obdm-request-blood">
                                     <span class="obdm-blood-badge obdm-blood-<?php echo esc_attr(strtolower(str_replace('+', 'pos', str_replace('-', 'neg', $obdm_req->blood_type_needed)))); ?>">
                                         <?php echo esc_html($obdm_req->blood_type_needed); ?>
@@ -80,10 +82,10 @@ $obdm_status_labels     = Obdm_Blood_Bank_Manager::get_status_labels();
                                     <span class="obdm-req-units"><?php echo esc_html(number_format_i18n($obdm_req->units_needed)); ?>u</span>
                                 </div>
                                 <div class="obdm-request-details">
-                                    <strong><?php echo esc_html($obdm_req->patient_name); ?></strong>
-                                    <small><?php echo esc_html($obdm_req->hospital_name); ?></small>
+                                    <strong><?php echo esc_html($obdm_urgency_labels[ $obdm_urgency ]); ?></strong>
+                                    <small><?php esc_html_e('Blood needed', 'obydullah-blood-bank-manager'); ?></small>
                                 </div>
-                                <span class="obdm-urgency-dot obdm-urgency-<?php echo esc_attr($obdm_req->urgency); ?>"></span>
+                                <span class="obdm-urgency-dot obdm-urgency-<?php echo esc_attr($obdm_urgency); ?>"></span>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -93,11 +95,11 @@ $obdm_status_labels     = Obdm_Blood_Bank_Manager::get_status_labels();
     </div>
 
     <div class="obdm-dashboard-actions">
-        <a href="<?php echo esc_url(wp_lostpassword_url()); ?>" class="obdm-btn obdm-btn-primary">
+        <a href="<?php echo esc_url(Obdm_Blood_Bank_Manager::donor_registration_url()); ?>" class="obdm-btn obdm-btn-primary">
             <span class="dashicons dashicons-admin-users"></span>
             <?php esc_html_e('Register as Donor', 'obydullah-blood-bank-manager'); ?>
         </a>
-        <a href="#" class="obdm-btn obdm-btn-secondary">
+        <a href="<?php echo esc_url(Obdm_Blood_Bank_Manager::blood_request_url()); ?>" class="obdm-btn obdm-btn-secondary">
             <span class="dashicons dashicons-email-alt"></span>
             <?php esc_html_e('Request Blood', 'obydullah-blood-bank-manager'); ?>
         </a>
