@@ -7,6 +7,7 @@ $obdm_settings = get_option('obdm_settings', [
     'min_age'              => 18,
     'max_days_between'     => 90,
     'enable_notifications' => 1,
+    'delete_data_on_uninstall' => 0,
     'custom_message'       => '',
     'donor_email_subject'  => __('Welcome to Our Blood Donation Community', 'obydullah-blood-bank-manager'),
     'request_email_subject' => __('New Blood Donation Request', 'obydullah-blood-bank-manager'),
@@ -88,6 +89,21 @@ $obdm_shortcodes = [
                         <p class="obdm-field obdm-field--full">
                             <label for="custom_message"><?php esc_html_e('Custom Message', 'obydullah-blood-bank-manager'); ?></label>
                             <textarea name="custom_message" id="custom_message" rows="4" placeholder="<?php esc_attr_e('Shown to donors in confirmation emails.', 'obydullah-blood-bank-manager'); ?>"><?php echo esc_textarea($obdm_settings['custom_message']); ?></textarea>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="obdm-form__card">
+                    <h2 class="obdm-form__section"><?php esc_html_e('Data on Uninstall', 'obydullah-blood-bank-manager'); ?></h2>
+                    <div class="obdm-form__grid">
+                        <p class="obdm-field obdm-field--switch obdm-field--full">
+                            <label for="delete_data_on_uninstall">
+                                <input type="checkbox" name="delete_data_on_uninstall" id="delete_data_on_uninstall" value="1" <?php checked(isset($obdm_settings['delete_data_on_uninstall']) ? (int) $obdm_settings['delete_data_on_uninstall'] : 0, 1); ?>>
+                                <span class="obdm-switch__text">
+                                    <strong><?php esc_html_e('Delete all data when the plugin is deleted', 'obydullah-blood-bank-manager'); ?></strong>
+                                    <em><?php esc_html_e('Off by default: donors, requests and blood banks are kept so reinstalling restores everything. When on, deleting the plugin drops the tables and options permanently. This cannot be undone.', 'obydullah-blood-bank-manager'); ?></em>
+                                </span>
+                            </label>
                         </p>
                     </div>
                 </div>

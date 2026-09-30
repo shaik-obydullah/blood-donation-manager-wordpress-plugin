@@ -1,4 +1,4 @@
-=== Obydullah Blood Donation Manager ===
+=== Obydullah Blood Bank Manager ===
 Contributors: obydullah
 Tags: blood donation, blood bank, donor, blood request, health
 Text Domain: obydullah-blood-bank-manager
@@ -9,11 +9,11 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Complete blood donation management system with donor registration, donation requests, blood bank listings, and compatibility matching.
+Complete blood bank management system with donor registration, donation requests, blood bank listings, and compatibility matching.
 
 == Description ==
 
-Obydullah Blood Donation Manager turns your WordPress site into a complete blood donation platform. Register donors, publish urgent blood requests, maintain a searchable blood bank directory, and keep everyone informed with automated email notifications.
+Obydullah Blood Bank Manager turns your WordPress site into a complete blood donation platform. Register donors, publish urgent blood requests, maintain a searchable blood bank directory, and keep everyone informed with automated email notifications.
 
 = Features =
 
@@ -44,7 +44,7 @@ Compatible with the latest WordPress versions, standard themes, and page builder
 
 1. Upload the `obydullah-blood-bank-manager` folder to the `/wp-content/plugins/` directory, or install the plugin zip through the WordPress admin.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Go to the new 'Blood Donation Management' menu in the admin sidebar.
+3. Go to the new 'Blood Bank Management' menu in the admin sidebar.
 4. Place the shortcodes on your pages to start collecting donor registrations and blood requests.
 
 == Frequently Asked Questions ==

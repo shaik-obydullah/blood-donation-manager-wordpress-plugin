@@ -1,13 +1,12 @@
 <?php
 /**
- * Plugin Name: Obydullah Blood Donation Manager
+ * Plugin Name: Obydullah Blood Bank Manager
  * Plugin URI: https://obydullah.com/project/blood-donation-management-system-a-complete-wordpress-solution
  * Description: Complete blood donation management system with donor registration, donation requests, blood bank listings, and compatibility matching.
  * Version: 1.0.0
  * Author: Shaik Obydullah
  * Author URI: https://obydullah.com
  * Text Domain: obydullah-blood-bank-manager
- * Domain Path: /languages
  * Requires at least: 6.2
  * Requires PHP: 8.0
  * License: GPL v2 or later
@@ -67,7 +66,6 @@ class Obdm_Blood_Bank_Manager {
         register_deactivation_hook(__FILE__, [$this, 'deactivate']);
 
         add_action('init', [$this, 'init']);
-        add_action('init', [$this, 'load_textdomain']);
         add_action('admin_menu', [$this, 'admin_menu']);
         add_action('admin_init', [$this, 'handle_admin_actions']);
         add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
@@ -95,20 +93,6 @@ class Obdm_Blood_Bank_Manager {
 
     public function deactivate() {
         flush_rewrite_rules();
-    }
-
-    /**
-     * Loads the plugin translations from the languages directory.
-     * Unnecessary since WordPress 6.7 for wordpress.org hosted plugins,
-     * but required for bundled .mo files on any other host.
-     */
-    public function load_textdomain() {
-        // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Required for the bundled .mo files; this plugin is not hosted on wordpress.org, so nothing loads its translations automatically.
-        load_plugin_textdomain(
-            'obydullah-blood-bank-manager',
-            false,
-            dirname(OBDM_PLUGIN_BASENAME) . '/languages'
-        );
     }
 
     /**
@@ -365,6 +349,7 @@ class Obdm_Blood_Bank_Manager {
             $min_age              = intval(wp_unslash($_POST['min_age'] ?? ''));
             $max_days_between     = intval(wp_unslash($_POST['max_days_between'] ?? ''));
             $enable_notifications = isset($_POST['enable_notifications']) ? 1 : 0;
+            $delete_data_on_uninstall = isset($_POST['delete_data_on_uninstall']) ? 1 : 0;
             $custom_message       = sanitize_textarea_field(wp_unslash($_POST['custom_message'] ?? ''));
             $donor_email_subject  = sanitize_text_field(wp_unslash($_POST['donor_email_subject'] ?? ''));
             $request_email_subject = sanitize_text_field(wp_unslash($_POST['request_email_subject'] ?? ''));
@@ -375,6 +360,7 @@ class Obdm_Blood_Bank_Manager {
                 'min_age'              => $min_age,
                 'max_days_between'     => $max_days_between,
                 'enable_notifications' => $enable_notifications,
+                'delete_data_on_uninstall' => $delete_data_on_uninstall,
                 'custom_message'       => $custom_message,
                 'donor_email_subject'  => $donor_email_subject,
                 'request_email_subject' => $request_email_subject,
@@ -619,8 +605,8 @@ class Obdm_Blood_Bank_Manager {
 
     public function admin_menu() {
         add_menu_page(
-            __('Blood Donation Management', 'obydullah-blood-bank-manager'),
-            __('Blood Donation Management', 'obydullah-blood-bank-manager'),
+            __('Blood Bank Management', 'obydullah-blood-bank-manager'),
+            __('Blood Bank Management', 'obydullah-blood-bank-manager'),
             'manage_options',
             'obdm-dashboard',
             [$this, 'admin_dashboard_page'],

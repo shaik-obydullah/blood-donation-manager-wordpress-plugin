@@ -1,1212 +1,1358 @@
-# Obydullah Blood Donation Manager - translation template.
-# Copyright (C) 2026 Obydullah
-# This file is distributed under the same license as the Obydullah Blood Donation Manager package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# Copyright (C) 2026 Shaik Obydullah
+# This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Obydullah Blood Donation Manager 1.0.0\n"
-"Report-Msgid-Bugs-To: https://www.obydullah.com/\n"
+"Project-Id-Version: Obydullah Blood Bank Manager 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/obydullah-blood-bank-manager\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-30 13:30+0100\n"
+"POT-Creation-Date: 2026-09-30T14:22:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: obydullah-blood-bank-manager\n"
 
-#: admin/obdm-blood-banks.php:96 admin/obdm-donors.php:98
-#: admin/obdm-requests.php:104
+#. Plugin Name of the plugin
+#: obdm-blood-bank-manager.php
+msgid "Obydullah Blood Bank Manager"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: obdm-blood-bank-manager.php
+msgid "https://obydullah.com/project/blood-donation-management-system-a-complete-wordpress-solution"
+msgstr ""
+
+#. Description of the plugin
+#: obdm-blood-bank-manager.php
+msgid "Complete blood donation management system with donor registration, donation requests, blood bank listings, and compatibility matching."
+msgstr ""
+
+#. Author of the plugin
+#: obdm-blood-bank-manager.php
+msgid "Shaik Obydullah"
+msgstr ""
+
+#. Author URI of the plugin
+#: obdm-blood-bank-manager.php
+msgid "https://obydullah.com"
+msgstr ""
+
+#: admin/obdm-blood-banks.php:35
+#: admin/obdm-donors.php:36
+#: admin/obdm-requests.php:39
 msgid "That record could not be found."
 msgstr ""
 
-#: admin/obdm-blood-banks.php:102 obdm-blood-bank-manager.php:533
-msgid "Add New Blood Bank"
-msgstr ""
-
-#: admin/obdm-blood-banks.php:102 obdm-blood-bank-manager.php:534
+#: admin/obdm-blood-banks.php:41
+#: obdm-blood-bank-manager.php:580
 msgid "Edit Blood Bank"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:103
+#: admin/obdm-blood-banks.php:41
+#: obdm-blood-bank-manager.php:579
+msgid "Add New Blood Bank"
+msgstr ""
+
+#: admin/obdm-blood-banks.php:42
 msgid "Add a collection point with contact details and service hours."
 msgstr ""
 
-#: admin/obdm-blood-banks.php:112
+#: admin/obdm-blood-banks.php:51
 msgid "Blood Bank Details"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:115
+#: admin/obdm-blood-banks.php:54
 msgid "Blood Bank Name"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:119
+#: admin/obdm-blood-banks.php:58
 msgid "Description"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:120
+#: admin/obdm-blood-banks.php:59
 msgid "Shown to visitors in the blood bank directory."
 msgstr ""
 
-#: admin/obdm-blood-banks.php:126 admin/obdm-blood-banks.php:260
+#: admin/obdm-blood-banks.php:65
+#: admin/obdm-blood-banks.php:199
 msgid "Location"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:129 admin/obdm-donors.php:188
+#: admin/obdm-blood-banks.php:68
+#: admin/obdm-donors.php:126
 #: templates/obdm-donor-registration.php:79
 msgid "Address"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:133 admin/obdm-blood-banks.php:226
-#: admin/obdm-donors.php:192 admin/obdm-donors.php:261
-#: admin/obdm-donors.php:287 admin/obdm-requests.php:196
-#: obdm-blood-bank-manager.php:723 templates/obdm-donation-request.php:78
+#: admin/obdm-blood-banks.php:72
+#: admin/obdm-blood-banks.php:165
+#: admin/obdm-donors.php:130
+#: admin/obdm-donors.php:199
+#: admin/obdm-donors.php:225
+#: admin/obdm-requests.php:131
+#: obdm-blood-bank-manager.php:770
+#: templates/obdm-donation-request.php:78
 #: templates/obdm-donor-registration.php:85
 msgid "City"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:137 admin/obdm-donors.php:196
+#: admin/obdm-blood-banks.php:76
+#: admin/obdm-donors.php:134
 #: templates/obdm-donor-registration.php:89
 msgid "State"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:141 admin/obdm-donors.php:200
+#: admin/obdm-blood-banks.php:80
+#: admin/obdm-donors.php:138
 #: templates/obdm-donor-registration.php:93
 msgid "ZIP Code"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:145 admin/obdm-donors.php:204
+#: admin/obdm-blood-banks.php:84
+#: admin/obdm-donors.php:142
 #: templates/obdm-donor-registration.php:100
 msgid "Country"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:149
+#: admin/obdm-blood-banks.php:88
 msgid "Latitude"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:153
+#: admin/obdm-blood-banks.php:92
 msgid "Longitude"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:160
+#: admin/obdm-blood-banks.php:99
 msgid "Contact & Hours"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:163 admin/obdm-donors.php:133
-#: admin/obdm-donors.php:285 templates/obdm-donor-registration.php:41
+#: admin/obdm-blood-banks.php:102
+#: admin/obdm-donors.php:71
+#: admin/obdm-donors.php:223
+#: templates/obdm-donor-registration.php:41
 msgid "Phone"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:167 admin/obdm-donors.php:129
+#: admin/obdm-blood-banks.php:106
+#: admin/obdm-donors.php:67
 #: templates/obdm-donor-registration.php:37
 msgid "Email"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:171
+#: admin/obdm-blood-banks.php:110
 msgid "Website"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:175
+#: admin/obdm-blood-banks.php:114
 msgid "Operating Hours"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:176
+#: admin/obdm-blood-banks.php:115
 msgid "Mon-Sun, 9:00 AM - 8:00 PM"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:182
+#: admin/obdm-blood-banks.php:121
 msgid "Active Listing"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:183
+#: admin/obdm-blood-banks.php:122
 msgid "Inactive blood banks are hidden from the front end directory."
 msgstr ""
 
-#: admin/obdm-blood-banks.php:191
+#: admin/obdm-blood-banks.php:130
 msgid "Save Blood Bank"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:192 admin/obdm-donors.php:216
-#: admin/obdm-requests.php:204
+#: admin/obdm-blood-banks.php:131
+#: admin/obdm-donors.php:154
+#: admin/obdm-requests.php:139
 msgid "Cancel"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:200 obdm-blood-bank-manager.php:531
-#: obdm-blood-bank-manager.php:600 obdm-blood-bank-manager.php:601
-#: templates/obdm-blood-banks-list.php:45 templates/obdm-dashboard.php:55
+#: admin/obdm-blood-banks.php:139
+#: obdm-blood-bank-manager.php:577
+#: obdm-blood-bank-manager.php:646
+#: obdm-blood-bank-manager.php:647
+#: templates/obdm-blood-banks-list.php:16
+#: templates/obdm-dashboard.php:42
 msgid "Blood Banks"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:203
+#. translators: %s: number of blood banks.
+#: admin/obdm-blood-banks.php:142
 #, php-format
 msgid "%s collection point registered."
 msgid_plural "%s collection points registered."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/obdm-blood-banks.php:207 admin/obdm-blood-banks.php:282
+#: admin/obdm-blood-banks.php:146
+#: admin/obdm-blood-banks.php:221
 msgid "Add blood bank"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:219 admin/obdm-donors.php:243
-#: admin/obdm-requests.php:232 templates/obdm-blood-banks-list.php:60
-#: templates/obdm-blood-requests-list.php:86 templates/obdm-donors-list.php:72
+#: admin/obdm-blood-banks.php:158
+#: admin/obdm-donors.php:181
+#: admin/obdm-requests.php:167
+#: templates/obdm-blood-banks-list.php:31
+#: templates/obdm-blood-requests-list.php:47
+#: templates/obdm-donors-list.php:39
 msgid "Search"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:222
+#: admin/obdm-blood-banks.php:161
 msgid "Name, city or email"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:229 admin/obdm-donors.php:264
-#: obdm-blood-bank-manager.php:801
+#: admin/obdm-blood-banks.php:168
+#: admin/obdm-donors.php:202
+#: obdm-blood-bank-manager.php:848
 msgid "All cities"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:237 admin/obdm-blood-banks.php:263
-#: admin/obdm-requests.php:170 admin/obdm-requests.php:250
-#: admin/obdm-requests.php:289
+#: admin/obdm-blood-banks.php:176
+#: admin/obdm-blood-banks.php:202
+#: admin/obdm-requests.php:105
+#: admin/obdm-requests.php:185
+#: admin/obdm-requests.php:224
 msgid "Status"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:240
+#: admin/obdm-blood-banks.php:179
 msgid "All"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:241 obdm-blood-bank-manager.php:1099
+#: admin/obdm-blood-banks.php:180
+#: obdm-blood-bank-manager.php:2005
 msgid "Active"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:242 obdm-blood-bank-manager.php:1101
+#: admin/obdm-blood-banks.php:181
+#: obdm-blood-bank-manager.php:2006
 msgid "Inactive"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:247 admin/obdm-donors.php:272
-#: admin/obdm-requests.php:272
+#: admin/obdm-blood-banks.php:186
+#: admin/obdm-donors.php:210
+#: admin/obdm-requests.php:207
 msgid "Apply filters"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:249 admin/obdm-donors.php:274
-#: admin/obdm-requests.php:274
+#: admin/obdm-blood-banks.php:188
+#: admin/obdm-donors.php:212
+#: admin/obdm-requests.php:209
 msgid "Reset"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:259
+#: admin/obdm-blood-banks.php:198
 msgid "Blood bank"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:261 templates/obdm-blood-requests-list.php:144
+#: admin/obdm-blood-banks.php:200
+#: templates/obdm-blood-requests-list.php:105
 msgid "Contact"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:262
+#: admin/obdm-blood-banks.php:201
 msgid "Hours"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:264 admin/obdm-donors.php:290
-#: admin/obdm-requests.php:291
+#: admin/obdm-blood-banks.php:203
+#: admin/obdm-donors.php:228
+#: admin/obdm-requests.php:226
 msgid "Actions"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:276
+#: admin/obdm-blood-banks.php:215
 msgid "No blood banks match these filters"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:277
+#: admin/obdm-blood-banks.php:216
 msgid "No blood banks yet"
 msgstr ""
 
-#: admin/obdm-blood-banks.php:279
+#: admin/obdm-blood-banks.php:218
 msgid "Try clearing the filters to see every location."
 msgstr ""
 
-#: admin/obdm-blood-banks.php:280
-msgid ""
-"Add the hospitals and collection points that help your community donate."
+#: admin/obdm-blood-banks.php:219
+msgid "Add the hospitals and collection points that help your community donate."
 msgstr ""
 
-#: admin/obdm-blood-banks.php:311
+#: admin/obdm-blood-banks.php:250
 msgid "Are you sure you want to delete this blood bank?"
 msgstr ""
 
-#: admin/obdm-dashboard.php:38
+#: admin/obdm-dashboard.php:23
 msgid "Total Donors"
 msgstr ""
 
-#: admin/obdm-dashboard.php:43
+#. translators: %s: number of available donors.
+#: admin/obdm-dashboard.php:28
 #, php-format
 msgid "%s available to donate"
 msgstr ""
 
-#: admin/obdm-dashboard.php:49 templates/obdm-dashboard.php:41
+#: admin/obdm-dashboard.php:34
+#: templates/obdm-dashboard.php:28
 msgid "Available Donors"
 msgstr ""
 
-#: admin/obdm-dashboard.php:54
+#. translators: %s: total number of donors.
+#: admin/obdm-dashboard.php:39
 #, php-format
 msgid "of %s registered"
 msgstr ""
 
-#: admin/obdm-dashboard.php:60
+#: admin/obdm-dashboard.php:45
 msgid "Total Requests"
 msgstr ""
 
-#: admin/obdm-dashboard.php:65
+#. translators: %s: number of fulfilled requests.
+#: admin/obdm-dashboard.php:50
 #, php-format
 msgid "%s fulfilled"
 msgstr ""
 
-#: admin/obdm-dashboard.php:71 templates/obdm-dashboard.php:48
+#: admin/obdm-dashboard.php:56
+#: templates/obdm-dashboard.php:35
 msgid "Pending Requests"
 msgstr ""
 
-#: admin/obdm-dashboard.php:74
+#: admin/obdm-dashboard.php:59
 msgid "awaiting a match"
 msgstr ""
 
-#: admin/obdm-dashboard.php:78
+#: admin/obdm-dashboard.php:63
 msgid "Fulfilled Requests"
 msgstr ""
 
-#: admin/obdm-dashboard.php:81
+#: admin/obdm-dashboard.php:66
 msgid "lives saved"
 msgstr ""
 
-#: admin/obdm-dashboard.php:85
+#: admin/obdm-dashboard.php:70
 msgid "Active Blood Banks"
 msgstr ""
 
-#: admin/obdm-dashboard.php:88
+#: admin/obdm-dashboard.php:73
 msgid "collection points"
 msgstr ""
 
-#: admin/obdm-dashboard.php:98 obdm-blood-bank-manager.php:573
-#: obdm-blood-bank-manager.php:574
+#: admin/obdm-dashboard.php:83
+#: obdm-blood-bank-manager.php:619
+#: obdm-blood-bank-manager.php:620
 msgid "Dashboard"
 msgstr ""
 
-#: admin/obdm-dashboard.php:99
+#: admin/obdm-dashboard.php:84
 msgid "A live overview of donors, requests and blood bank coverage."
 msgstr ""
 
-#: admin/obdm-dashboard.php:119 templates/obdm-dashboard.php:63
+#: admin/obdm-dashboard.php:104
+#: templates/obdm-dashboard.php:50
 msgid "Donors by Blood Type"
 msgstr ""
 
-#: admin/obdm-dashboard.php:120
+#: admin/obdm-dashboard.php:105
 msgid "Registered donors"
 msgstr ""
 
-#: admin/obdm-dashboard.php:128 admin/obdm-donors.php:302
+#: admin/obdm-dashboard.php:113
+#: admin/obdm-donors.php:240
 msgid "No donors registered yet"
 msgstr ""
 
-#: admin/obdm-dashboard.php:129
+#: admin/obdm-dashboard.php:114
 msgid "Register your first donor to start tracking blood type coverage."
 msgstr ""
 
-#: admin/obdm-dashboard.php:131 admin/obdm-dashboard.php:219
-#: admin/obdm-donors.php:231 admin/obdm-donors.php:307
+#: admin/obdm-dashboard.php:116
+#: admin/obdm-dashboard.php:204
+#: admin/obdm-donors.php:169
+#: admin/obdm-donors.php:245
 msgid "Add donor"
 msgstr ""
 
-#: admin/obdm-dashboard.php:157
+#: admin/obdm-dashboard.php:142
 msgid "Recent Blood Requests"
 msgstr ""
 
-#: admin/obdm-dashboard.php:159 admin/obdm-dashboard.php:207
+#: admin/obdm-dashboard.php:144
+#: admin/obdm-dashboard.php:192
 msgid "View all"
 msgstr ""
 
-#: admin/obdm-dashboard.php:168
+#: admin/obdm-dashboard.php:153
 msgid "No requests yet"
 msgstr ""
 
-#: admin/obdm-dashboard.php:169
+#: admin/obdm-dashboard.php:154
 msgid "Requests submitted from the front end will appear here."
 msgstr ""
 
-#: admin/obdm-dashboard.php:184
+#. translators: 1: number of units, 2: hospital name.
+#: admin/obdm-dashboard.php:169
 #, php-format
 msgid "%1$s units at %2$s"
 msgstr ""
 
-#: admin/obdm-dashboard.php:205
+#: admin/obdm-dashboard.php:190
 msgid "Recent Donors"
 msgstr ""
 
-#: admin/obdm-dashboard.php:216
+#: admin/obdm-dashboard.php:201
 msgid "No donors yet"
 msgstr ""
 
-#: admin/obdm-dashboard.php:217
+#: admin/obdm-dashboard.php:202
 msgid "Donors who sign up will be listed here."
 msgstr ""
 
-#: admin/obdm-dashboard.php:234 admin/obdm-donors.php:329
+#: admin/obdm-dashboard.php:219
+#: admin/obdm-donors.php:267
 msgid "Available"
 msgstr ""
 
-#: admin/obdm-dashboard.php:236 admin/obdm-donors.php:331
+#: admin/obdm-dashboard.php:221
+#: admin/obdm-donors.php:269
 msgid "Paused"
 msgstr ""
 
-#: admin/obdm-dashboard.php:250
+#: admin/obdm-dashboard.php:235
 msgid "Publish your donation pages"
 msgstr ""
 
-#: admin/obdm-dashboard.php:251
-msgid ""
-"Add the registration, request and directory shortcodes to any page to start "
-"collecting donors."
+#: admin/obdm-dashboard.php:236
+msgid "Add the registration, request and directory shortcodes to any page to start collecting donors."
 msgstr ""
 
-#: admin/obdm-dashboard.php:255
+#: admin/obdm-dashboard.php:240
 msgid "View shortcodes"
 msgstr ""
 
-#: admin/obdm-donors.php:104
-msgid "Add New Donor"
-msgstr ""
-
-#: admin/obdm-donors.php:104
+#: admin/obdm-donors.php:42
 msgid "Edit Donor"
 msgstr ""
 
-#: admin/obdm-donors.php:105
+#: admin/obdm-donors.php:42
+msgid "Add New Donor"
+msgstr ""
+
+#: admin/obdm-donors.php:43
 msgid "Donor details are used for matching and email notifications."
 msgstr ""
 
-#: admin/obdm-donors.php:118
+#: admin/obdm-donors.php:56
 msgid "Identity"
 msgstr ""
 
-#: admin/obdm-donors.php:121 templates/obdm-donor-registration.php:26
+#: admin/obdm-donors.php:59
+#: templates/obdm-donor-registration.php:26
 msgid "First Name"
 msgstr ""
 
-#: admin/obdm-donors.php:125 templates/obdm-donor-registration.php:30
+#: admin/obdm-donors.php:63
+#: templates/obdm-donor-registration.php:30
 msgid "Last Name"
 msgstr ""
 
-#: admin/obdm-donors.php:140
+#: admin/obdm-donors.php:78
 msgid "Donation Profile"
 msgstr ""
 
-#: admin/obdm-donors.php:143 templates/obdm-donor-registration.php:48
+#: admin/obdm-donors.php:81
+#: templates/obdm-donor-registration.php:48
 msgid "Blood Type"
 msgstr ""
 
-#: admin/obdm-donors.php:145 admin/obdm-requests.php:147
+#: admin/obdm-donors.php:83
+#: admin/obdm-requests.php:82
 #: templates/obdm-donation-request.php:47
 #: templates/obdm-donor-registration.php:50
 msgid "Select Blood Type"
 msgstr ""
 
-#: admin/obdm-donors.php:152 templates/obdm-donor-registration.php:73
+#: admin/obdm-donors.php:90
+#: templates/obdm-donor-registration.php:73
 msgid "Weight (kg)"
 msgstr ""
 
-#: admin/obdm-donors.php:156 templates/obdm-donor-registration.php:57
+#: admin/obdm-donors.php:94
+#: templates/obdm-donor-registration.php:57
 msgid "Date of Birth"
 msgstr ""
 
-#: admin/obdm-donors.php:160 templates/obdm-donor-registration.php:64
+#: admin/obdm-donors.php:98
+#: templates/obdm-donor-registration.php:64
 msgid "Gender"
 msgstr ""
 
-#: admin/obdm-donors.php:162 templates/obdm-donor-registration.php:66
+#: admin/obdm-donors.php:100
+#: templates/obdm-donor-registration.php:66
 msgid "Select Gender"
 msgstr ""
 
-#: admin/obdm-donors.php:163 templates/obdm-donor-registration.php:67
+#: admin/obdm-donors.php:101
+#: templates/obdm-donor-registration.php:67
 msgid "Male"
 msgstr ""
 
-#: admin/obdm-donors.php:164 templates/obdm-donor-registration.php:68
+#: admin/obdm-donors.php:102
+#: templates/obdm-donor-registration.php:68
 msgid "Female"
 msgstr ""
 
-#: admin/obdm-donors.php:165 templates/obdm-donor-registration.php:69
+#: admin/obdm-donors.php:103
+#: templates/obdm-donor-registration.php:69
 msgid "Other"
 msgstr ""
 
-#: admin/obdm-donors.php:169 templates/obdm-donor-registration.php:104
+#: admin/obdm-donors.php:107
+#: templates/obdm-donor-registration.php:104
 msgid "Last Donation Date"
 msgstr ""
 
-#: admin/obdm-donors.php:176
+#: admin/obdm-donors.php:114
 msgid "Available to Donate"
 msgstr ""
 
-#: admin/obdm-donors.php:177
+#: admin/obdm-donors.php:115
 msgid "Unavailable donors are hidden from compatibility matching."
 msgstr ""
 
-#: admin/obdm-donors.php:185
+#: admin/obdm-donors.php:123
 msgid "Location & Health"
 msgstr ""
 
-#: admin/obdm-donors.php:208 templates/obdm-donor-registration.php:110
+#: admin/obdm-donors.php:146
+#: templates/obdm-donor-registration.php:110
 msgid "Medical Conditions"
 msgstr ""
 
-#: admin/obdm-donors.php:215
+#: admin/obdm-donors.php:153
 msgid "Save Donor"
 msgstr ""
 
-#: admin/obdm-donors.php:224 obdm-blood-bank-manager.php:582
-#: obdm-blood-bank-manager.php:583
+#: admin/obdm-donors.php:162
+#: obdm-blood-bank-manager.php:628
+#: obdm-blood-bank-manager.php:629
 msgid "Donors"
 msgstr ""
 
-#: admin/obdm-donors.php:227
+#. translators: %s: number of donors.
+#: admin/obdm-donors.php:165
 #, php-format
 msgid "%s donor in the database."
 msgid_plural "%s donors in the database."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/obdm-donors.php:246
+#: admin/obdm-donors.php:184
 msgid "Name, email or phone"
 msgstr ""
 
-#: admin/obdm-donors.php:250 admin/obdm-donors.php:286
-#: admin/obdm-requests.php:239 admin/obdm-requests.php:285
-#: obdm-blood-bank-manager.php:713
+#: admin/obdm-donors.php:188
+#: admin/obdm-donors.php:224
+#: admin/obdm-requests.php:174
+#: admin/obdm-requests.php:220
+#: obdm-blood-bank-manager.php:760
 msgid "Blood type"
 msgstr ""
 
-#: admin/obdm-donors.php:253 admin/obdm-requests.php:242
-#: obdm-blood-bank-manager.php:715 obdm-blood-bank-manager.php:794
+#: admin/obdm-donors.php:191
+#: admin/obdm-requests.php:177
+#: obdm-blood-bank-manager.php:762
+#: obdm-blood-bank-manager.php:841
 msgid "All blood types"
 msgstr ""
 
-#: admin/obdm-donors.php:284
+#: admin/obdm-donors.php:222
 msgid "Donor"
 msgstr ""
 
-#: admin/obdm-donors.php:288
+#: admin/obdm-donors.php:226
 msgid "Availability"
 msgstr ""
 
-#: admin/obdm-donors.php:289
+#: admin/obdm-donors.php:227
 msgid "Registered"
 msgstr ""
 
-#: admin/obdm-donors.php:301
+#: admin/obdm-donors.php:239
 msgid "No donors match these filters"
 msgstr ""
 
-#: admin/obdm-donors.php:304
+#: admin/obdm-donors.php:242
 msgid "Try widening your search or clearing the filters."
 msgstr ""
 
-#: admin/obdm-donors.php:305
-msgid ""
-"Donors who register themselves or are added here will show up in this list."
+#: admin/obdm-donors.php:243
+msgid "Donors who register themselves or are added here will show up in this list."
 msgstr ""
 
-#: admin/obdm-donors.php:340
+#: admin/obdm-donors.php:278
 msgid "Are you sure you want to delete this donor?"
 msgstr ""
 
-#: admin/obdm-requests.php:110
+#: admin/obdm-requests.php:45
 msgid "Edit Blood Request"
 msgstr ""
 
-#: admin/obdm-requests.php:110
+#: admin/obdm-requests.php:45
 msgid "New Blood Request"
 msgstr ""
 
-#: admin/obdm-requests.php:111
+#: admin/obdm-requests.php:46
 msgid "Record a request and notify matching donors."
 msgstr ""
 
-#: admin/obdm-requests.php:120
+#: admin/obdm-requests.php:55
 msgid "Requester"
 msgstr ""
 
-#: admin/obdm-requests.php:123
+#: admin/obdm-requests.php:58
 msgid "Requester Name"
 msgstr ""
 
-#: admin/obdm-requests.php:127
+#: admin/obdm-requests.php:62
 msgid "Requester Email"
 msgstr ""
 
-#: admin/obdm-requests.php:131
+#: admin/obdm-requests.php:66
 msgid "Requester Phone"
 msgstr ""
 
-#: admin/obdm-requests.php:138
+#: admin/obdm-requests.php:73
 msgid "Patient & Requirement"
 msgstr ""
 
-#: admin/obdm-requests.php:141 templates/obdm-donation-request.php:41
+#: admin/obdm-requests.php:76
+#: templates/obdm-donation-request.php:41
 msgid "Patient Name"
 msgstr ""
 
-#: admin/obdm-requests.php:145 templates/obdm-donation-request.php:45
+#: admin/obdm-requests.php:80
+#: templates/obdm-donation-request.php:45
 msgid "Blood Type Needed"
 msgstr ""
 
-#: admin/obdm-requests.php:154 templates/obdm-donation-request.php:56
+#: admin/obdm-requests.php:89
+#: templates/obdm-donation-request.php:56
 msgid "Units Needed"
 msgstr ""
 
-#: admin/obdm-requests.php:158 admin/obdm-requests.php:261
-#: admin/obdm-requests.php:288 templates/obdm-donation-request.php:60
+#: admin/obdm-requests.php:93
+#: admin/obdm-requests.php:196
+#: admin/obdm-requests.php:223
+#: templates/obdm-donation-request.php:60
 msgid "Urgency"
 msgstr ""
 
-#: admin/obdm-requests.php:166
+#: admin/obdm-requests.php:101
 msgid "Needed By"
 msgstr ""
 
-#: admin/obdm-requests.php:178
+#: admin/obdm-requests.php:113
 msgid "Additional Info"
 msgstr ""
 
-#: admin/obdm-requests.php:185 admin/obdm-requests.php:287
+#: admin/obdm-requests.php:120
+#: admin/obdm-requests.php:222
 msgid "Hospital"
 msgstr ""
 
-#: admin/obdm-requests.php:188 templates/obdm-donation-request.php:74
+#: admin/obdm-requests.php:123
+#: templates/obdm-donation-request.php:74
 msgid "Hospital Name"
 msgstr ""
 
-#: admin/obdm-requests.php:192 templates/obdm-donation-request.php:83
+#: admin/obdm-requests.php:127
+#: templates/obdm-donation-request.php:83
 msgid "Hospital Address"
 msgstr ""
 
-#: admin/obdm-requests.php:203
+#: admin/obdm-requests.php:138
 msgid "Save Request"
 msgstr ""
 
-#: admin/obdm-requests.php:212 obdm-blood-bank-manager.php:591
-#: obdm-blood-bank-manager.php:592
+#: admin/obdm-requests.php:147
+#: obdm-blood-bank-manager.php:637
+#: obdm-blood-bank-manager.php:638
 msgid "Blood Requests"
 msgstr ""
 
-#: admin/obdm-requests.php:215
+#. translators: 1: total number of requests, 2: number of pending requests.
+#: admin/obdm-requests.php:150
 #, php-format
 msgid "%1$s total, %2$s still pending."
 msgstr ""
 
-#: admin/obdm-requests.php:220
+#: admin/obdm-requests.php:155
 msgid "New request"
 msgstr ""
 
-#: admin/obdm-requests.php:235
+#: admin/obdm-requests.php:170
 msgid "Patient, hospital or city"
 msgstr ""
 
-#: admin/obdm-requests.php:253
+#: admin/obdm-requests.php:188
 msgid "All statuses"
 msgstr ""
 
-#: admin/obdm-requests.php:264
+#: admin/obdm-requests.php:199
 msgid "All levels"
 msgstr ""
 
-#: admin/obdm-requests.php:284
+#: admin/obdm-requests.php:219
 msgid "Patient"
 msgstr ""
 
-#: admin/obdm-requests.php:286
+#: admin/obdm-requests.php:221
 msgid "Units"
 msgstr ""
 
-#: admin/obdm-requests.php:290
+#: admin/obdm-requests.php:225
 msgid "Requested"
 msgstr ""
 
-#: admin/obdm-requests.php:303
+#: admin/obdm-requests.php:238
 msgid "No requests match these filters"
 msgstr ""
 
-#: admin/obdm-requests.php:304
+#: admin/obdm-requests.php:239
 msgid "No blood requests yet"
 msgstr ""
 
-#: admin/obdm-requests.php:306
+#: admin/obdm-requests.php:241
 msgid "Try clearing the filters to see every request."
 msgstr ""
 
-#: admin/obdm-requests.php:307
+#: admin/obdm-requests.php:242
 msgid "Requests submitted from the front end will appear here for matching."
 msgstr ""
 
-#: admin/obdm-requests.php:309
+#: admin/obdm-requests.php:244
 msgid "Create request"
 msgstr ""
 
-#: admin/obdm-requests.php:337
+#: admin/obdm-requests.php:272
 msgid "Are you sure you want to delete this request?"
 msgstr ""
 
-#: admin/obdm-settings.php:11 includes/obdm-ajax-handlers.php:180
+#: admin/obdm-settings.php:12
+#: includes/obdm-ajax-handlers.php:189
 msgid "Welcome to Our Blood Donation Community"
 msgstr ""
 
-#: admin/obdm-settings.php:12 includes/obdm-ajax-handlers.php:332
+#: admin/obdm-settings.php:13
+#: includes/obdm-ajax-handlers.php:331
 msgid "New Blood Donation Request"
 msgstr ""
 
-#: admin/obdm-settings.php:16
+#: admin/obdm-settings.php:19
 msgid "Donor registration form"
 msgstr ""
 
-#: admin/obdm-settings.php:17
+#: admin/obdm-settings.php:20
 msgid "Blood request form"
 msgstr ""
 
-#: admin/obdm-settings.php:18
+#: admin/obdm-settings.php:21
 msgid "Donor directory"
 msgstr ""
 
-#: admin/obdm-settings.php:19
+#: admin/obdm-settings.php:22
 msgid "Active blood requests"
 msgstr ""
 
-#: admin/obdm-settings.php:20
+#: admin/obdm-settings.php:23
 msgid "Blood bank directory"
 msgstr ""
 
-#: admin/obdm-settings.php:21
+#: admin/obdm-settings.php:24
 msgid "Donation dashboard"
 msgstr ""
 
-#: admin/obdm-settings.php:29 obdm-blood-bank-manager.php:617
-#: obdm-blood-bank-manager.php:618
+#: admin/obdm-settings.php:32
+#: obdm-blood-bank-manager.php:663
+#: obdm-blood-bank-manager.php:664
 msgid "Settings"
 msgstr ""
 
-#: admin/obdm-settings.php:30
-msgid ""
-"Notification rules, eligibility criteria and the message sent to donors."
-msgstr ""
-
-#: admin/obdm-settings.php:44
-msgid "Notifications"
+#: admin/obdm-settings.php:33
+msgid "Notification rules, eligibility criteria and the message sent to donors."
 msgstr ""
 
 #: admin/obdm-settings.php:47
+msgid "Notifications"
+msgstr ""
+
+#: admin/obdm-settings.php:50
 msgid "Notification Email"
 msgstr ""
 
-#: admin/obdm-settings.php:49
+#: admin/obdm-settings.php:52
 msgid "New registrations and requests are reported to this address."
 msgstr ""
 
-#: admin/obdm-settings.php:52
+#: admin/obdm-settings.php:55
 msgid "Donor Welcome Subject"
 msgstr ""
 
-#: admin/obdm-settings.php:56
+#: admin/obdm-settings.php:59
 msgid "New Request Subject"
 msgstr ""
 
-#: admin/obdm-settings.php:63
+#: admin/obdm-settings.php:66
 msgid "Send notification emails"
 msgstr ""
 
-#: admin/obdm-settings.php:64
+#: admin/obdm-settings.php:67
 msgid "Turn this off if emails are not configured yet."
 msgstr ""
 
-#: admin/obdm-settings.php:72
+#: admin/obdm-settings.php:75
 msgid "Donor Eligibility"
 msgstr ""
 
-#: admin/obdm-settings.php:75
+#: admin/obdm-settings.php:78
 msgid "Minimum Weight (kg)"
 msgstr ""
 
-#: admin/obdm-settings.php:79
+#: admin/obdm-settings.php:82
 msgid "Minimum Age"
 msgstr ""
 
-#: admin/obdm-settings.php:83
+#: admin/obdm-settings.php:86
 msgid "Days Between Donations"
 msgstr ""
 
-#: admin/obdm-settings.php:87
+#: admin/obdm-settings.php:90
 msgid "Custom Message"
 msgstr ""
 
-#: admin/obdm-settings.php:88
+#: admin/obdm-settings.php:91
 msgid "Shown to donors in confirmation emails."
 msgstr ""
 
-#: admin/obdm-settings.php:94
+#: admin/obdm-settings.php:97
+msgid "Data on Uninstall"
+msgstr ""
+
+#: admin/obdm-settings.php:103
+msgid "Delete all data when the plugin is deleted"
+msgstr ""
+
+#: admin/obdm-settings.php:104
+msgid "Off by default: donors, requests and blood banks are kept so reinstalling restores everything. When on, deleting the plugin drops the tables and options permanently. This cannot be undone."
+msgstr ""
+
+#: admin/obdm-settings.php:112
 msgid "Save Settings"
 msgstr ""
 
-#: admin/obdm-settings.php:100
+#: admin/obdm-settings.php:118
 msgid "Shortcodes"
 msgstr ""
 
-#: admin/obdm-settings.php:109
+#: admin/obdm-settings.php:127
 msgid "Paste any of these into a page or post."
 msgstr ""
 
-#: admin/obdm-settings.php:113 obdm-blood-bank-manager.php:609
-#: obdm-blood-bank-manager.php:610
+#: admin/obdm-settings.php:131
+#: obdm-blood-bank-manager.php:655
+#: obdm-blood-bank-manager.php:656
 msgid "Campaigns"
 msgstr ""
 
-#: admin/obdm-settings.php:114
+#: admin/obdm-settings.php:132
 msgid "Create themed campaigns to group requests and drive participation."
 msgstr ""
 
-#: admin/obdm-settings.php:117
+#: admin/obdm-settings.php:135
 msgid "Manage campaigns"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:20 includes/obdm-ajax-handlers.php:112
-#: obdm-blood-bank-manager.php:119 obdm-blood-bank-manager.php:188
-#: obdm-blood-bank-manager.php:255 obdm-blood-bank-manager.php:320
-#: obdm-blood-bank-manager.php:360
+#: includes/obdm-ajax-handlers.php:29
+#: includes/obdm-ajax-handlers.php:119
+#: obdm-blood-bank-manager.php:125
+#: obdm-blood-bank-manager.php:200
+#: obdm-blood-bank-manager.php:273
+#: obdm-blood-bank-manager.php:344
+#: obdm-blood-bank-manager.php:386
 msgid "Security verification failed"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:31 includes/obdm-ajax-handlers.php:123
+#. translators: %s: name of the missing form field.
+#: includes/obdm-ajax-handlers.php:40
+#: includes/obdm-ajax-handlers.php:130
 #, php-format
 msgid "Please fill in all required fields. Missing: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:48
+#: includes/obdm-ajax-handlers.php:53
 msgid "A donor with this email already exists."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:70
+#. translators: %s: minimum donor weight in kilograms.
+#: includes/obdm-ajax-handlers.php:75
 #, php-format
 msgid "Minimum weight required is %s kg."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:102
+#: includes/obdm-ajax-handlers.php:109
 msgid "Thank you for registering as a blood donor!"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:104
+#: includes/obdm-ajax-handlers.php:111
 msgid "Registration failed. Please try again."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:166
+#: includes/obdm-ajax-handlers.php:175
 msgid "Your blood request has been submitted successfully."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:168
+#: includes/obdm-ajax-handlers.php:177
 msgid "Request submission failed. Please try again."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:184
+#. translators: %s: donor first name.
+#: includes/obdm-ajax-handlers.php:193
 #, php-format
 msgid "Dear %s,"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:187
-msgid ""
-"Thank you for registering as a blood donor. Your registration has been "
-"received successfully."
+#: includes/obdm-ajax-handlers.php:196
+msgid "Thank you for registering as a blood donor. Your registration has been received successfully."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:188
+#: includes/obdm-ajax-handlers.php:197
 msgid "Your Details:"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:191 includes/obdm-ajax-handlers.php:224
-#: includes/obdm-ajax-handlers.php:341
+#. translators: %s: donor blood type.
+#. translators: %s: blood type needed.
+#: includes/obdm-ajax-handlers.php:200
+#: includes/obdm-ajax-handlers.php:233
+#: includes/obdm-ajax-handlers.php:340
 #, php-format
 msgid "Blood Type: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:196 includes/obdm-ajax-handlers.php:229
+#. translators: %s: donor city.
+#: includes/obdm-ajax-handlers.php:205
+#: includes/obdm-ajax-handlers.php:238
 #, php-format
 msgid "City: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:199
+#: includes/obdm-ajax-handlers.php:208
 msgid "We will contact you when there is a blood request in your area."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:200 includes/obdm-ajax-handlers.php:318
+#: includes/obdm-ajax-handlers.php:209
+#: includes/obdm-ajax-handlers.php:317
 msgid "Best regards,"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:209
+#: includes/obdm-ajax-handlers.php:218
 msgid "New Blood Donor Registration"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:210
+#: includes/obdm-ajax-handlers.php:219
 msgid "A new donor has registered:"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:213
+#. translators: 1: donor first name, 2: donor last name.
+#: includes/obdm-ajax-handlers.php:222
 #, php-format
 msgid "Name: %1$s %2$s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:219
+#. translators: %s: donor email address.
+#: includes/obdm-ajax-handlers.php:228
 #, php-format
 msgid "Email: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:265
+#: includes/obdm-ajax-handlers.php:264
 msgid "Blood Donation Needed - Urgent Request"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:270
+#: includes/obdm-ajax-handlers.php:269
 msgid "Dear Donor,"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:273
+#. translators: %s: blood type needed by the patient.
+#: includes/obdm-ajax-handlers.php:272
 #, php-format
-msgid ""
-"A new blood donation request has been posted that matches your blood type "
-"(%s)."
+msgid "A new blood donation request has been posted that matches your blood type (%s)."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:276
+#: includes/obdm-ajax-handlers.php:275
 msgid "Request Details:"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:279 includes/obdm-ajax-handlers.php:336
+#. translators: %s: patient name.
+#: includes/obdm-ajax-handlers.php:278
+#: includes/obdm-ajax-handlers.php:335
 #, php-format
 msgid "Patient: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:284
+#. translators: %s: blood type needed.
+#: includes/obdm-ajax-handlers.php:283
 #, php-format
 msgid "Blood Type Needed: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:289
+#. translators: %d: number of required blood units.
+#: includes/obdm-ajax-handlers.php:288
 #, php-format
 msgid "Units Needed: %d"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:294 includes/obdm-ajax-handlers.php:346
+#. translators: %s: hospital name.
+#: includes/obdm-ajax-handlers.php:293
+#: includes/obdm-ajax-handlers.php:345
 #, php-format
 msgid "Hospital: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:299 includes/obdm-ajax-handlers.php:351
+#. translators: %s: urgency level of the request.
+#: includes/obdm-ajax-handlers.php:298
+#: includes/obdm-ajax-handlers.php:350
 #, php-format
 msgid "Urgency: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:306
+#. translators: %s: date the blood is needed by.
+#: includes/obdm-ajax-handlers.php:305
 #, php-format
 msgid "Needed By: %s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:313 includes/obdm-ajax-handlers.php:356
+#. translators: 1: requester name, 2: requester phone number.
+#: includes/obdm-ajax-handlers.php:312
+#: includes/obdm-ajax-handlers.php:355
 #, php-format
 msgid "Contact: %1$s - %2$s"
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:317
+#: includes/obdm-ajax-handlers.php:316
 msgid "If you can donate, please contact the requester directly."
 msgstr ""
 
-#: includes/obdm-ajax-handlers.php:333
+#: includes/obdm-ajax-handlers.php:332
 msgid "A new blood request has been submitted:"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:126 obdm-blood-bank-manager.php:348
+#: obdm-blood-bank-manager.php:134
+#: obdm-blood-bank-manager.php:374
 msgid "Donor deleted."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:127 obdm-blood-bank-manager.php:348
+#: obdm-blood-bank-manager.php:135
+#: obdm-blood-bank-manager.php:374
 msgid "Donor could not be deleted."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:172
+#: obdm-blood-bank-manager.php:182
 msgid "Donor updated successfully."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:173
+#: obdm-blood-bank-manager.php:183
 msgid "Donor could not be updated."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:177
+#: obdm-blood-bank-manager.php:189
 msgid "Donor added successfully."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:178
+#: obdm-blood-bank-manager.php:190
 msgid "Donor could not be added."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:195 obdm-blood-bank-manager.php:349
+#: obdm-blood-bank-manager.php:209
+#: obdm-blood-bank-manager.php:375
 msgid "Request deleted."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:196 obdm-blood-bank-manager.php:349
+#: obdm-blood-bank-manager.php:210
+#: obdm-blood-bank-manager.php:375
 msgid "Request could not be deleted."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:235
+#: obdm-blood-bank-manager.php:251
 msgid "Request updated successfully."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:236
+#: obdm-blood-bank-manager.php:252
 msgid "Request could not be updated."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:240
+#: obdm-blood-bank-manager.php:258
 msgid "Request created successfully."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:241
+#: obdm-blood-bank-manager.php:259
 msgid "Request could not be created."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:262 obdm-blood-bank-manager.php:350
+#: obdm-blood-bank-manager.php:282
+#: obdm-blood-bank-manager.php:376
 msgid "Blood bank deleted."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:263 obdm-blood-bank-manager.php:350
+#: obdm-blood-bank-manager.php:283
+#: obdm-blood-bank-manager.php:376
 msgid "Blood bank could not be deleted."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:304
+#: obdm-blood-bank-manager.php:326
 msgid "Blood bank updated successfully."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:305
+#: obdm-blood-bank-manager.php:327
 msgid "Blood bank could not be updated."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:309
+#: obdm-blood-bank-manager.php:333
 msgid "Blood bank added successfully."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:310
+#: obdm-blood-bank-manager.php:334
 msgid "Blood bank could not be added."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:343
+#: obdm-blood-bank-manager.php:369
 msgid "Settings saved."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:532
+#: obdm-blood-bank-manager.php:578
 msgid "Blood Bank"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:546
+#: obdm-blood-bank-manager.php:592
 msgid "Blood Donation Campaigns"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:547
+#: obdm-blood-bank-manager.php:593
 msgid "Campaign"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:548
+#: obdm-blood-bank-manager.php:594
 msgid "Add New Campaign"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:549
+#: obdm-blood-bank-manager.php:595
 msgid "Edit Campaign"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:562 obdm-blood-bank-manager.php:563
+#: obdm-blood-bank-manager.php:608
+#: obdm-blood-bank-manager.php:609
 msgid "Blood Donation Management"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:692
+#: obdm-blood-bank-manager.php:739
 msgid "Campaign details"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:726
+#: obdm-blood-bank-manager.php:773
 msgid "Target city or area"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:734
+#: obdm-blood-bank-manager.php:781
 msgid "Target units"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:738
+#: obdm-blood-bank-manager.php:785
 msgid "How many donations you are aiming to collect."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:793
+#: obdm-blood-bank-manager.php:840
 msgid "Filter campaigns by blood type"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:800
+#: obdm-blood-bank-manager.php:847
 msgid "Filter campaigns by city"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:856
+#. translators: %s: blood type.
+#: obdm-blood-bank-manager.php:903
 #, php-format
 msgid "blood type %s"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:864
+#. translators: %s: city name.
+#: obdm-blood-bank-manager.php:911
 #, php-format
 msgid "city %s"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:883
+#. translators: %s: list of active filters.
+#: obdm-blood-bank-manager.php:930
 #, php-format
 msgid "Filtered by %s."
 msgstr ""
 
-#: obdm-blood-bank-manager.php:888
+#: obdm-blood-bank-manager.php:935
 msgid "Reset filters"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:998
+#: obdm-blood-bank-manager.php:1906
 msgid "Normal"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:999
+#: obdm-blood-bank-manager.php:1907
 msgid "Urgent"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1000
+#: obdm-blood-bank-manager.php:1908
 msgid "Critical"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1006
+#: obdm-blood-bank-manager.php:1914
 msgid "Pending"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1007
+#: obdm-blood-bank-manager.php:1915
 msgid "Fulfilled"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1008
+#: obdm-blood-bank-manager.php:1916
 msgid "Cancelled"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1052
+#: obdm-blood-bank-manager.php:1960
 msgid "Back"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1068
+#: obdm-blood-bank-manager.php:1976
 msgid "Nothing to show yet"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1133
+#: obdm-blood-bank-manager.php:2037
 msgid "Edit"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1134
+#: obdm-blood-bank-manager.php:2038
 msgid "Delete"
 msgstr ""
 
-#: obdm-blood-bank-manager.php:1169
+#. translators: %s: number of items.
+#: obdm-blood-bank-manager.php:2073
 #, php-format
 msgid "%s item"
 msgid_plural "%s items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/obdm-blood-banks-list.php:46
+#: templates/obdm-blood-banks-list.php:17
 msgid "Find blood banks near you."
 msgstr ""
 
-#: templates/obdm-blood-banks-list.php:53
+#: templates/obdm-blood-banks-list.php:24
 msgid "Search blood banks..."
 msgstr ""
 
-#: templates/obdm-blood-banks-list.php:55 templates/obdm-donors-list.php:67
+#: templates/obdm-blood-banks-list.php:26
+#: templates/obdm-donors-list.php:34
 msgid "All Cities"
 msgstr ""
 
-#: templates/obdm-blood-banks-list.php:67
+#: templates/obdm-blood-banks-list.php:38
 msgid "No blood banks found"
 msgstr ""
 
-#: templates/obdm-blood-banks-list.php:68
+#: templates/obdm-blood-banks-list.php:39
 msgid "Try another search term or city."
 msgstr ""
 
-#: templates/obdm-blood-banks-list.php:100
+#: templates/obdm-blood-banks-list.php:71
 msgid "Visit Website"
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:59
+#: templates/obdm-blood-requests-list.php:20
 msgid "Blood Donation Requests"
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:60
+#: templates/obdm-blood-requests-list.php:21
 msgid "People who need blood donations."
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:67
+#: templates/obdm-blood-requests-list.php:28
 msgid "Search requests..."
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:69 templates/obdm-donors-list.php:61
+#: templates/obdm-blood-requests-list.php:30
+#: templates/obdm-donors-list.php:28
 msgid "All Blood Types"
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:75
+#: templates/obdm-blood-requests-list.php:36
 msgid "All Statuses"
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:81
+#: templates/obdm-blood-requests-list.php:42
 msgid "All Urgency Levels"
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:93
+#: templates/obdm-blood-requests-list.php:54
 msgid "No blood requests found"
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:94
+#: templates/obdm-blood-requests-list.php:55
 msgid "Clear the filters to see every open request."
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:113
+#. translators: %d: number of required blood units.
+#: templates/obdm-blood-requests-list.php:74
 #, php-format
 msgid "%d unit"
 msgid_plural "%d units"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/obdm-blood-requests-list.php:134
+#. translators: %s: date the blood is needed by.
+#: templates/obdm-blood-requests-list.php:95
 #, php-format
 msgid "Needed by: %s"
 msgstr ""
 
-#: templates/obdm-blood-requests-list.php:148
+#: templates/obdm-blood-requests-list.php:109
 msgid "Call"
 msgstr ""
 
-#: templates/obdm-dashboard.php:31
+#: templates/obdm-dashboard.php:18
 msgid "Blood Donation Dashboard"
 msgstr ""
 
-#: templates/obdm-dashboard.php:32
+#: templates/obdm-dashboard.php:19
 msgid "Live community numbers at a glance."
 msgstr ""
 
-#: templates/obdm-dashboard.php:74
+#: templates/obdm-dashboard.php:61
 msgid "No donor data available yet."
 msgstr ""
 
-#: templates/obdm-dashboard.php:82
+#: templates/obdm-dashboard.php:69
 msgid "Urgent Requests"
 msgstr ""
 
-#: templates/obdm-dashboard.php:84
+#: templates/obdm-dashboard.php:71
 msgid "No pending requests."
 msgstr ""
 
-#: templates/obdm-dashboard.php:111 templates/obdm-donor-registration.php:123
+#: templates/obdm-dashboard.php:98
+#: templates/obdm-donor-registration.php:123
 msgid "Register as Donor"
 msgstr ""
 
-#: templates/obdm-dashboard.php:115
+#: templates/obdm-dashboard.php:102
 msgid "Request Blood"
 msgstr ""
 
@@ -1215,8 +1361,7 @@ msgid "Request Blood Donation"
 msgstr ""
 
 #: templates/obdm-donation-request.php:12
-msgid ""
-"Need blood? Submit a request and we will connect you with available donors."
+msgid "Need blood? Submit a request and we will connect you with available donors."
 msgstr ""
 
 #: templates/obdm-donation-request.php:20
@@ -1269,9 +1414,7 @@ msgid "Register as a Blood Donor"
 msgstr ""
 
 #: templates/obdm-donor-registration.php:13
-msgid ""
-"Join our community of life-savers. Register as a blood donor and help those "
-"in need."
+msgid "Join our community of life-savers. Register as a blood donor and help those in need."
 msgstr ""
 
 #: templates/obdm-donor-registration.php:111
@@ -1282,27 +1425,28 @@ msgstr ""
 msgid "I am available to donate blood"
 msgstr ""
 
-#: templates/obdm-donors-list.php:51
+#: templates/obdm-donors-list.php:18
 msgid "Available Blood Donors"
 msgstr ""
 
-#: templates/obdm-donors-list.php:52
+#: templates/obdm-donors-list.php:19
 msgid "Find blood donors in your area."
 msgstr ""
 
-#: templates/obdm-donors-list.php:59
+#: templates/obdm-donors-list.php:26
 msgid "Search donors..."
 msgstr ""
 
-#: templates/obdm-donors-list.php:79
+#: templates/obdm-donors-list.php:46
 msgid "No donors found"
 msgstr ""
 
-#: templates/obdm-donors-list.php:80
+#: templates/obdm-donors-list.php:47
 msgid "Try a different search or check back once more donors register."
 msgstr ""
 
-#: templates/obdm-donors-list.php:105
+#. translators: %s: date of the last donation.
+#: templates/obdm-donors-list.php:72
 #, php-format
 msgid "Last donated: %s"
 msgstr ""
