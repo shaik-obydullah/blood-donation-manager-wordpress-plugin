@@ -6,7 +6,7 @@
  * Version: 1.0.0
  * Author: Shaik Obydullah
  * Author URI: https://obydullah.com
- * Text Domain: obydullah-blood-donation-manager
+ * Text Domain: obydullah-blood-bank-manager
  * Domain Path: /languages
  * Requires at least: 6.2
  * Requires PHP: 8.0
