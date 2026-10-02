@@ -17,6 +17,34 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/*
+ * Minimum environment check, before anything is declared or parsed further.
+ *
+ * The class below uses PHP 8 syntax that is a parse error on PHP 7 (`match`,
+ * union-ish type declarations, constructor property defaults), so an older
+ * runtime cannot load this file at all and WordPress would report a fatal
+ * error with no usable explanation. Bailing out here with a plain message
+ * tells the site owner what to fix instead.
+ *
+ * The header already declares "Requires PHP: 8.0"; this is the runtime backstop
+ * for a direct file include or a bypassed activation check.
+ */
+if (version_compare(PHP_VERSION, '8.0', '<')) {
+    add_action('admin_notices', function () {
+        printf(
+            '<div class="notice notice-error"><p>%s</p></div>',
+            esc_html(sprintf(
+                /* translators: 1: required PHP version, 2: current PHP version. */
+                __('Obydullah Blood Bank Manager requires PHP %1$s or newer. This server runs PHP %2$s, so the plugin has not been loaded and its tables were not created. Update PHP on the host, then activate the plugin again.', 'obydullah-blood-bank-manager'),
+                '8.0',
+                PHP_VERSION
+            ))
+        );
+    });
+
+    return;
+}
+
 define('OBDM_VERSION', '1.0.0');
 define('OBDM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('OBDM_PLUGIN_URL', plugin_dir_url(__FILE__));
@@ -84,6 +112,7 @@ class Obdm_Blood_Bank_Manager {
         add_action('restrict_manage_posts', [$this, 'campaign_list_filters']);
         add_action('pre_get_posts', [$this, 'filter_campaign_query']);
         add_action('admin_notices', [$this, 'campaign_filter_notice']);
+        add_action('admin_notices', [$this, 'activation_error_notice']);
         add_action('save_post', [__CLASS__, 'flush_shortcode_page_cache']);
 
         add_shortcode('obdm_donor_registration', [$this, 'donor_registration_form']);
@@ -418,6 +447,31 @@ class Obdm_Blood_Bank_Manager {
         }
     }
 
+    /**
+     * Surfaces a table creation failure recorded during activation.
+     *
+     * Activation runs before any of the plugin's admin screens exist, so the
+     * error cannot be shown at that point and must not be printed (output during
+     * activation triggers WordPress's "unexpected output" warning). It is stored
+     * instead and rendered here, on every admin screen, until a later activation
+     * succeeds and clears it.
+     *
+     * @return void
+     */
+    public function activation_error_notice() {
+        $error = get_option('obdm_activation_error');
+
+        if (!$error) {
+            return;
+        }
+
+        printf(
+            '<div class="notice notice-error"><p><strong>%s</strong> %s</p></div>',
+            esc_html__('Blood Bank Manager could not set up its database tables.', 'obydullah-blood-bank-manager'),
+            esc_html($error)
+        );
+    }
+
     public function init() {
         $this->create_post_types();
     }
@@ -426,7 +480,22 @@ class Obdm_Blood_Bank_Manager {
         global $wpdb;
         $charset_collate = $wpdb->get_charset_collate();
 
-        $sql_donors = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}obdm_donors (
+        /*
+         * The DDL below deliberately omits "IF NOT EXISTS".
+         *
+         * dbDelta() identifies each table with the regex `CREATE TABLE ([^ ]*)`,
+         * so "IF NOT EXISTS" makes it record the table as the literal name "IF".
+         * Everything after that is then keyed off the wrong identifier: it tries
+         * to DESCRIBE and ALTER a table called "IF", finds nothing, and skips the
+         * whole schema comparison. The CREATE still runs on a fresh install, but
+         * from the second activation onward dbDelta no longer adds missing
+         * columns or indexes and no longer reports what it did, so a later
+         * release that changes the schema silently leaves existing installs on
+         * the old one. Without the clause dbDelta matches the real table name and
+         * performs the idempotent create-or-upgrade that activation relies on.
+         */
+
+        $sql_donors = "CREATE TABLE {$wpdb->prefix}obdm_donors (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED DEFAULT NULL,
             first_name VARCHAR(100) NOT NULL,
@@ -454,7 +523,7 @@ class Obdm_Blood_Bank_Manager {
             KEY is_available (is_available)
         ) $charset_collate;";
 
-        $sql_requests = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}obdm_requests (
+        $sql_requests = "CREATE TABLE {$wpdb->prefix}obdm_requests (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             requester_name VARCHAR(200) NOT NULL,
             requester_email VARCHAR(100) NOT NULL,
@@ -477,7 +546,7 @@ class Obdm_Blood_Bank_Manager {
             KEY urgency (urgency)
         ) $charset_collate;";
 
-        $sql_blood_banks = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}obdm_blood_banks (
+        $sql_blood_banks = "CREATE TABLE {$wpdb->prefix}obdm_blood_banks (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             name VARCHAR(200) NOT NULL,
             description TEXT,
@@ -501,10 +570,28 @@ class Obdm_Blood_Bank_Manager {
         ) $charset_collate;";
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql_donors);
-        dbDelta($sql_requests);
-        dbDelta($sql_blood_banks);
 
+        // dbDelta() swallows a rejected statement: it keeps going and returns an
+        // array of what it thinks it changed. Reading $wpdb->last_error after each
+        // call is what turns a silent failure into a visible one, which is how
+        // the table-name mismatch described above went unnoticed for so long.
+        foreach ([$sql_donors, $sql_requests, $sql_blood_banks] as $sql) {
+            dbDelta($sql);
+
+            if (!empty($wpdb->last_error)) {
+                // Activation runs before any admin notice machinery, so record
+                // the failure for the admin to read instead of printing it:
+                // output during activation triggers WordPress's
+                // "unexpected output" warning and can abort the request.
+                update_option('obdm_activation_error', $wpdb->last_error, false);
+                $wpdb->last_error = '';
+
+                // Leave obdm_db_version untouched so a later activation retries.
+                return;
+            }
+        }
+
+        delete_option('obdm_activation_error');
         update_option('obdm_db_version', OBDM_VERSION);
     }
 

@@ -60,7 +60,7 @@ function obdm_uninstall_current_site() {
         $wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $full_name ) );
     }
 
-    $options = array( 'obdm_settings', 'obdm_cache_version', 'obdm_db_version' );
+    $options = array( 'obdm_settings', 'obdm_cache_version', 'obdm_db_version', 'obdm_activation_error' );
 
     foreach ( $options as $option ) {
         delete_option( $option );
